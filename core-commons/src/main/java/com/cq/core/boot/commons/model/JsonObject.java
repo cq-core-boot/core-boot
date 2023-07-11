@@ -1,7 +1,7 @@
 package com.cq.core.boot.commons.model;
 
-import com.only4play.common.constants.BaseEnum;
-import com.only4play.common.constants.CodeEnum;
+import com.cq.core.boot.commons.constants.BaseEnum;
+import com.cq.core.boot.commons.constants.CodeEnum;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;

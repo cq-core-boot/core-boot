@@ -3,8 +3,9 @@ package com.cq.core.boot.commons.model;
 /**
  * @author cqmike
  */
-public abstract class AbstractJpaResponse implements Response{
+public abstract class AbstractJpaResponse implements Response {
 
+  private static final long serialVersionUID = 1441871034433136190L;
   private Long id;
 
   private Long createdAt;
