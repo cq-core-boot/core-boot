@@ -1,8 +1,8 @@
 package com.cq.core.boot.codegen.processor.creator;
 
-import com.google.auto.service.AutoService;
 import com.cq.core.boot.codegen.processor.BaseCodeGenProcessor;
 import com.cq.core.boot.codegen.spi.CodeGenProcessor;
+import com.google.auto.service.AutoService;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
@@ -26,56 +26,56 @@ import java.util.Objects;
 @AutoService(value = CodeGenProcessor.class)
 public class CreatorCodeGenProcessor extends BaseCodeGenProcessor {
 
-  public static final String SUFFIX = "Creator";
+    public static final String SUFFIX = "Creator";
 
-  @Override
-  public Class<? extends Annotation> getAnnotation() {
-    return GenCreator.class;
-  }
+    @Override
+    public Class<? extends Annotation> getAnnotation() {
+        return GenCreator.class;
+    }
 
-  @Override
-  public String generatePackage(TypeElement typeElement) {
-    return typeElement.getAnnotation(GenCreator.class).pkgName();
-  }
+    @Override
+    public String generatePackage(TypeElement typeElement) {
+        return typeElement.getAnnotation(GenCreator.class).pkgName();
+    }
 
-  @Override
-  public void generateClass(TypeElement typeElement, RoundEnvironment roundEnvironment) {
+    @Override
+    public void generateClass(TypeElement typeElement, RoundEnvironment roundEnvironment) {
+        /**
+         * 为啥加@Data 还要生成get set 方法？
+         * lombok - mapstruct 集成
+         *
+         */
+        String className = PREFIX + typeElement.getSimpleName() + SUFFIX;
+        String sourceClassName = typeElement.getSimpleName() + SUFFIX;
+        Builder builder = TypeSpec.classBuilder(className)
+                .addModifiers(Modifier.PUBLIC)
+                .addAnnotation(Schema.class)
+                .addAnnotation(Data.class);
+        addSetterAndGetterMethod(builder, findFields(typeElement, ve -> Objects.isNull(ve.getAnnotation(
+                IgnoreCreator.class)) && !dtoIgnore(ve)));
+        String packageName = generatePackage(typeElement);
+        genJavaFile(packageName, builder);
+        genJavaFile(packageName, getSourceType(sourceClassName, packageName, className));
+    }
+
     /**
-     * 为啥加@Data 还要生成get set 方法？
-     * lombok - mapstruct 集成
+     * 忽略时间类型
      *
+     * @param ve
+     * @return
      */
-    String className = PREFIX + typeElement.getSimpleName() + SUFFIX;
-    String sourceClassName = typeElement.getSimpleName() + SUFFIX;
-    Builder builder = TypeSpec.classBuilder(className)
-        .addModifiers(Modifier.PUBLIC)
-        .addAnnotation(Schema.class)
-        .addAnnotation(Data.class);
-    addSetterAndGetterMethod(builder, findFields(typeElement, ve -> Objects.isNull(ve.getAnnotation(
-        IgnoreCreator.class)) && !dtoIgnore(ve)));
-    String packageName = generatePackage(typeElement);
-    genJavaFile(packageName, builder);
-    genJavaFile(packageName, getSourceType(sourceClassName, packageName, className));
-  }
+    private boolean dtoIgnore(Element ve) {
+        return dtoIgnoreFieldTypes.contains(TypeName.get(ve.asType())) || ve.getModifiers()
+                .contains(Modifier.STATIC);
+    }
 
-  /**
-   * 忽略时间类型
-   *
-   * @param ve
-   * @return
-   */
-  private boolean dtoIgnore(Element ve) {
-    return dtoIgnoreFieldTypes.contains(TypeName.get(ve.asType())) || ve.getModifiers()
-        .contains(Modifier.STATIC);
-  }
+    static final List<TypeName> dtoIgnoreFieldTypes;
 
-  static final List<TypeName> dtoIgnoreFieldTypes;
-
-  static {
-    dtoIgnoreFieldTypes = new ArrayList<>();
-    dtoIgnoreFieldTypes.add(TypeName.get(Date.class));
-    dtoIgnoreFieldTypes.add(TypeName.get(LocalDateTime.class));
-  }
+    static {
+        dtoIgnoreFieldTypes = new ArrayList<>();
+        dtoIgnoreFieldTypes.add(TypeName.get(Date.class));
+        dtoIgnoreFieldTypes.add(TypeName.get(LocalDateTime.class));
+    }
 
 
 }

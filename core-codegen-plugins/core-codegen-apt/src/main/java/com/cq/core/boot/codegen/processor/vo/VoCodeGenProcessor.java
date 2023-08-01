@@ -1,8 +1,8 @@
 package com.cq.core.boot.codegen.processor.vo;
 
-import com.google.auto.service.AutoService;
 import com.cq.core.boot.codegen.processor.BaseCodeGenProcessor;
 import com.cq.core.boot.codegen.spi.CodeGenProcessor;
+import com.google.auto.service.AutoService;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
@@ -39,29 +39,29 @@ public class VoCodeGenProcessor extends BaseCodeGenProcessor {
   @Override
   protected void generateClass(TypeElement typeElement, RoundEnvironment roundEnvironment) {
     Set<VariableElement> fields = findFields(typeElement,
-        ve -> Objects.isNull(ve.getAnnotation(IgnoreVo.class)));
+            ve -> Objects.isNull(ve.getAnnotation(IgnoreVo.class)));
     String className = PREFIX + typeElement.getSimpleName() + SUFFIX;
     String sourceClassName = typeElement.getSimpleName() + SUFFIX;
     Builder builder = TypeSpec.classBuilder(className)
-        .superclass(AbstractBaseJpaVO.class)
-        .addModifiers(Modifier.PUBLIC)
-        .addAnnotation(Schema.class)
-        .addAnnotation(Data.class);
+            .superclass(AbstractBaseJpaVO.class)
+            .addModifiers(Modifier.PUBLIC)
+            .addAnnotation(Schema.class)
+            .addAnnotation(Data.class);
     addSetterAndGetterMethod(builder, fields);
     MethodSpec.Builder constructorSpecBuilder = MethodSpec.constructorBuilder()
-        .addParameter(TypeName.get(typeElement.asType()), "source")
-        .addModifiers(Modifier.PUBLIC);
+            .addParameter(TypeName.get(typeElement.asType()), "source")
+            .addModifiers(Modifier.PUBLIC);
     constructorSpecBuilder.addStatement("super(source)");
     fields.stream().forEach(f -> {
       constructorSpecBuilder.addStatement("this.set$L(source.get$L())", getFieldDefaultName(f),
-          getFieldDefaultName(f));
+              getFieldDefaultName(f));
     });
     builder.addMethod(MethodSpec.constructorBuilder()
-        .addModifiers(Modifier.PROTECTED)
-        .build());
+            .addModifiers(Modifier.PROTECTED)
+            .build());
     builder.addMethod(constructorSpecBuilder.build());
     String packageName = generatePackage(typeElement);
     genJavaFile(packageName, builder);
-    genJavaFile(packageName, getSourceTypeWithConstruct(typeElement,sourceClassName, packageName, className));
+      genJavaFile(packageName, getSourceTypeWithConstruct(typeElement, sourceClassName, packageName, className));
   }
 }

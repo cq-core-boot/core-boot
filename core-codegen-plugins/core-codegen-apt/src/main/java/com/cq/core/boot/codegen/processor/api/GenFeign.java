@@ -10,11 +10,11 @@ import java.lang.annotation.*;
 @Documented
 public @interface GenFeign {
 
-  String pkgName();
+    String pkgName();
 
-  String serverName() default "xxxSrv";
+    String serverName() default "xxxSrv";
 
-  String sourcePath() default "src/main/java";
+    String sourcePath() default "src/main/java";
 
-  boolean overrideSource() default false;
+    boolean overrideSource() default false;
 }

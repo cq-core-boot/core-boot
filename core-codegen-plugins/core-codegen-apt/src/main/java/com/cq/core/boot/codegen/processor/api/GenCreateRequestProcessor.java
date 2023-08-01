@@ -1,10 +1,10 @@
 package com.cq.core.boot.codegen.processor.api;
 
-import com.google.auto.service.AutoService;
 import com.cq.core.boot.codegen.processor.BaseCodeGenProcessor;
 import com.cq.core.boot.codegen.processor.DefaultNameContext;
 import com.cq.core.boot.codegen.processor.creator.IgnoreCreator;
 import com.cq.core.boot.codegen.spi.CodeGenProcessor;
+import com.google.auto.service.AutoService;
 import com.only4play.common.model.Request;
 import com.squareup.javapoet.TypeSpec;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -26,29 +26,29 @@ import java.util.Set;
 @AutoService(value = CodeGenProcessor.class)
 public class GenCreateRequestProcessor extends BaseCodeGenProcessor {
 
-  public static final String CREATE_REQUEST_SUFFIX = "CreateRequest";
+    public static final String CREATE_REQUEST_SUFFIX = "CreateRequest";
 
-  @Override
-  protected void generateClass(TypeElement typeElement, RoundEnvironment roundEnvironment) {
-    DefaultNameContext nameContext = getNameContext(typeElement);
-    Set<VariableElement> fields = findFields(typeElement,
-        p -> Objects.isNull(p.getAnnotation(IgnoreCreator.class)));
-    TypeSpec.Builder typeSpecBuilder = TypeSpec.classBuilder(nameContext.getCreateClassName())
-        .addModifiers(Modifier.PUBLIC)
-        .addSuperinterface(Request.class)
-        .addAnnotation(Schema.class);
-    addSetterAndGetterMethodWithConverter(typeSpecBuilder, fields);
-    genJavaSourceFile(generatePackage(typeElement),
-        typeElement.getAnnotation(GenCreateRequest.class).sourcePath(), typeSpecBuilder);
-  }
+    @Override
+    protected void generateClass(TypeElement typeElement, RoundEnvironment roundEnvironment) {
+        DefaultNameContext nameContext = getNameContext(typeElement);
+        Set<VariableElement> fields = findFields(typeElement,
+                p -> Objects.isNull(p.getAnnotation(IgnoreCreator.class)));
+        TypeSpec.Builder typeSpecBuilder = TypeSpec.classBuilder(nameContext.getCreateClassName())
+                .addModifiers(Modifier.PUBLIC)
+                .addSuperinterface(Request.class)
+                .addAnnotation(Schema.class);
+        addSetterAndGetterMethodWithConverter(typeSpecBuilder, fields);
+        genJavaSourceFile(generatePackage(typeElement),
+                typeElement.getAnnotation(GenCreateRequest.class).sourcePath(), typeSpecBuilder);
+    }
 
-  @Override
-  public Class<? extends Annotation> getAnnotation() {
-    return GenCreateRequest.class;
-  }
+    @Override
+    public Class<? extends Annotation> getAnnotation() {
+        return GenCreateRequest.class;
+    }
 
-  @Override
-  public String generatePackage(TypeElement typeElement) {
-    return typeElement.getAnnotation(GenCreateRequest.class).pkgName();
-  }
+    @Override
+    public String generatePackage(TypeElement typeElement) {
+        return typeElement.getAnnotation(GenCreateRequest.class).pkgName();
+    }
 }

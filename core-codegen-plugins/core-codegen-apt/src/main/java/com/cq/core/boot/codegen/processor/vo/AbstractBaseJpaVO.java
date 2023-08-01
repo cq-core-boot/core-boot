@@ -11,7 +11,7 @@ public class AbstractBaseJpaVO {
     )
     private int version;
     @Schema(
-        title = "主键"
+            title = "主键"
     )
     private Long id;
     @Schema(

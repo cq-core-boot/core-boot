@@ -1,10 +1,10 @@
 package com.cq.core.boot.codegen.processor.api;
 
-import com.google.auto.service.AutoService;
 import com.cq.core.boot.codegen.processor.BaseCodeGenProcessor;
 import com.cq.core.boot.codegen.processor.DefaultNameContext;
 import com.cq.core.boot.codegen.processor.updater.IgnoreUpdater;
 import com.cq.core.boot.codegen.spi.CodeGenProcessor;
+import com.google.auto.service.AutoService;
 import com.only4play.common.model.Request;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
@@ -27,32 +27,33 @@ import java.util.Set;
 @AutoService(value = CodeGenProcessor.class)
 public class GenUpdateRequestProcessor extends BaseCodeGenProcessor {
 
-  public static String UPDATE_REQUEST_SUFFIX = "UpdateRequest";
-  @Override
-  protected void generateClass(TypeElement typeElement, RoundEnvironment roundEnvironment) {
-    DefaultNameContext nameContext = getNameContext(typeElement);
-    Set<VariableElement> fields = findFields(typeElement,
-        p -> Objects.isNull(p.getAnnotation(IgnoreUpdater.class)));
-    TypeSpec.Builder typeSpecBuilder = TypeSpec.classBuilder(nameContext.getUpdateClassName())
-        .addModifiers(Modifier.PUBLIC)
-        .addSuperinterface(Request.class)
-        .addAnnotation(Schema.class);
+    public static String UPDATE_REQUEST_SUFFIX = "UpdateRequest";
 
-    addSetterAndGetterMethodWithConverter(typeSpecBuilder, fields);
-    typeSpecBuilder.addField(
-        FieldSpec.builder(ClassName.get(Long.class), "id", Modifier.PRIVATE).build());
-    addIdSetterAndGetter(typeSpecBuilder);
-    genJavaSourceFile(generatePackage(typeElement),
-        typeElement.getAnnotation(GenUpdateRequest.class).sourcePath(), typeSpecBuilder);
-  }
+    @Override
+    protected void generateClass(TypeElement typeElement, RoundEnvironment roundEnvironment) {
+        DefaultNameContext nameContext = getNameContext(typeElement);
+        Set<VariableElement> fields = findFields(typeElement,
+                p -> Objects.isNull(p.getAnnotation(IgnoreUpdater.class)));
+        TypeSpec.Builder typeSpecBuilder = TypeSpec.classBuilder(nameContext.getUpdateClassName())
+                .addModifiers(Modifier.PUBLIC)
+                .addSuperinterface(Request.class)
+                .addAnnotation(Schema.class);
 
-  @Override
-  public Class<? extends Annotation> getAnnotation() {
-    return GenUpdateRequest.class;
-  }
+        addSetterAndGetterMethodWithConverter(typeSpecBuilder, fields);
+        typeSpecBuilder.addField(
+                FieldSpec.builder(ClassName.get(Long.class), "id", Modifier.PRIVATE).build());
+        addIdSetterAndGetter(typeSpecBuilder);
+        genJavaSourceFile(generatePackage(typeElement),
+                typeElement.getAnnotation(GenUpdateRequest.class).sourcePath(), typeSpecBuilder);
+    }
 
-  @Override
-  public String generatePackage(TypeElement typeElement) {
-    return typeElement.getAnnotation(GenUpdateRequest.class).pkgName();
-  }
+    @Override
+    public Class<? extends Annotation> getAnnotation() {
+        return GenUpdateRequest.class;
+    }
+
+    @Override
+    public String generatePackage(TypeElement typeElement) {
+        return typeElement.getAnnotation(GenUpdateRequest.class).pkgName();
+    }
 }

@@ -5,8 +5,8 @@ import java.util.function.Consumer;
 /**
  * @author cqmike 2022/1/28 9:10 下午
  */
-public interface UpdateHandler<T>{
+public interface UpdateHandler<T> {
 
-  Executor<T> update(Consumer<T> consumer);
+    Executor<T> update(Consumer<T> consumer);
 
 }

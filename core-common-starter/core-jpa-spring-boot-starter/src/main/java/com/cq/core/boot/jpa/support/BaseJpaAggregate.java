@@ -34,13 +34,13 @@ public abstract class BaseJpaAggregate extends AbstractAggregateRoot<BaseJpaAggr
     private Integer version;
 
     @PrePersist
-    public void prePersist(){
+    public void prePersist() {
         this.setCreatedAt(Instant.now());
         this.setUpdatedAt(Instant.now());
     }
 
     @PreUpdate
-    public void preUpdate(){
+    public void preUpdate() {
         this.setUpdatedAt(Instant.now());
     }
 }

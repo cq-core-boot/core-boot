@@ -9,21 +9,24 @@ import java.lang.annotation.Annotation;
  */
 public interface CodeGenProcessor {
 
-  /**
-   * 需要解析的类上的注解
-   * @return
-   */
-  Class<? extends Annotation> getAnnotation();
+    /**
+     * 需要解析的类上的注解
+     *
+     * @return
+     */
+    Class<? extends Annotation> getAnnotation();
 
-  /**
-   * 获取生成的包路径
-   * @return
-   */
-  String generatePackage(TypeElement typeElement);
+    /**
+     * 获取生成的包路径
+     *
+     * @return
+     */
+    String generatePackage(TypeElement typeElement);
 
-  /**
-   * 代码生成逻辑
-   * @throws Exception
-   */
-  void generate(TypeElement typeElement, RoundEnvironment roundEnvironment) throws Exception;
+    /**
+     * 代码生成逻辑
+     *
+     * @throws Exception
+     */
+    void generate(TypeElement typeElement, RoundEnvironment roundEnvironment) throws Exception;
 }

@@ -1,10 +1,10 @@
 package com.cq.core.boot.codegen.processor.mapper;
 
-import com.google.auto.service.AutoService;
 import com.cq.core.boot.codegen.processor.BaseCodeGenProcessor;
 import com.cq.core.boot.codegen.processor.DefaultNameContext;
 import com.cq.core.boot.codegen.spi.CodeGenProcessor;
 import com.cq.core.boot.codegen.util.StringUtils;
+import com.google.auto.service.AutoService;
 import com.only4play.common.mapper.DateMapper;
 import com.only4play.common.mapper.GenericEnumMapper;
 import com.squareup.javapoet.*;

@@ -10,6 +10,12 @@
     </parent>
 
     <artifactId>core-codegen-plugins</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>core-codegen-apt</module>
+        <module>core-codegen-test</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

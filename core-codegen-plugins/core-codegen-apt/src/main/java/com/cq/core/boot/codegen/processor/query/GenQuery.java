@@ -12,9 +12,9 @@ import java.lang.annotation.*;
 @Documented
 public @interface GenQuery {
 
-  String pkgName();
+    String pkgName();
 
-  String sourcePath() default "src/main/java";
+    String sourcePath() default "src/main/java";
 
-  boolean overrideSource() default false;
+    boolean overrideSource() default false;
 }

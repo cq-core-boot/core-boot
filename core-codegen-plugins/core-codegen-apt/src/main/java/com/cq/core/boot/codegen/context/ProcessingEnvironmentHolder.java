@@ -11,11 +11,11 @@ public final class ProcessingEnvironmentHolder {
   public static final ThreadLocal<ProcessingEnvironment> environment = new ThreadLocal<>();
 
 
-  public static void setEnvironment(ProcessingEnvironment pe){
+    public static void setEnvironment(ProcessingEnvironment pe) {
     environment.set(pe);
   }
 
-  public static ProcessingEnvironment getEnvironment(){
+    public static ProcessingEnvironment getEnvironment() {
     return environment.get();
   }
 

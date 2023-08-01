@@ -1,10 +1,10 @@
 package com.cq.core.boot.codegen.processor.api;
 
-import com.google.auto.service.AutoService;
 import com.cq.core.boot.codegen.processor.BaseCodeGenProcessor;
 import com.cq.core.boot.codegen.processor.DefaultNameContext;
 import com.cq.core.boot.codegen.processor.vo.IgnoreVo;
 import com.cq.core.boot.codegen.spi.CodeGenProcessor;
+import com.google.auto.service.AutoService;
 import com.only4play.common.model.AbstractJpaResponse;
 import com.squareup.javapoet.TypeSpec;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,28 +25,29 @@ import java.util.Set;
 @AutoService(value = CodeGenProcessor.class)
 public class GenResponseProcessor extends BaseCodeGenProcessor {
 
-  public static String RESPONSE_SUFFIX = "Response";
-  @Override
-  protected void generateClass(TypeElement typeElement, RoundEnvironment roundEnvironment) {
-    DefaultNameContext nameContext = getNameContext(typeElement);
-    Set<VariableElement> fields = findFields(typeElement,
-        p -> Objects.isNull(p.getAnnotation(IgnoreVo.class)));
-    TypeSpec.Builder typeSpecBuilder = TypeSpec.classBuilder(nameContext.getResponseClassName())
-        .addModifiers(Modifier.PUBLIC)
-        .superclass(AbstractJpaResponse.class)
-        .addAnnotation(Schema.class);
-    addSetterAndGetterMethodWithConverter(typeSpecBuilder, fields);
-    genJavaSourceFile(generatePackage(typeElement),
-        typeElement.getAnnotation(GenResponse.class).sourcePath(), typeSpecBuilder);
-  }
+    public static String RESPONSE_SUFFIX = "Response";
 
-  @Override
-  public Class<? extends Annotation> getAnnotation() {
-    return GenResponse.class;
-  }
+    @Override
+    protected void generateClass(TypeElement typeElement, RoundEnvironment roundEnvironment) {
+        DefaultNameContext nameContext = getNameContext(typeElement);
+        Set<VariableElement> fields = findFields(typeElement,
+                p -> Objects.isNull(p.getAnnotation(IgnoreVo.class)));
+        TypeSpec.Builder typeSpecBuilder = TypeSpec.classBuilder(nameContext.getResponseClassName())
+                .addModifiers(Modifier.PUBLIC)
+                .superclass(AbstractJpaResponse.class)
+                .addAnnotation(Schema.class);
+        addSetterAndGetterMethodWithConverter(typeSpecBuilder, fields);
+        genJavaSourceFile(generatePackage(typeElement),
+                typeElement.getAnnotation(GenResponse.class).sourcePath(), typeSpecBuilder);
+    }
 
-  @Override
-  public String generatePackage(TypeElement typeElement) {
-    return typeElement.getAnnotation(GenResponse.class).pkgName();
-  }
+    @Override
+    public Class<? extends Annotation> getAnnotation() {
+        return GenResponse.class;
+    }
+
+    @Override
+    public String generatePackage(TypeElement typeElement) {
+        return typeElement.getAnnotation(GenResponse.class).pkgName();
+    }
 }

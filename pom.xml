@@ -9,6 +9,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>core-commons</module>
+        <module>core-common-starter</module>
+        <module>core-codegen-plugins</module>
     </modules>
 
     <properties>
@@ -28,6 +30,7 @@
         <commons-lang3.version>3.4</commons-lang3.version>
         <jjwt-version>0.9.0</jjwt-version>
         <guava-version>31.0.1-jre</guava-version>
+        <vavr-version>1.0.0-alpha-3</vavr-version>
         <druid-starter-version>1.2.4</druid-starter-version>
         <swagger-version>2.9.2</swagger-version>
         <swagger-maven-plugin>3.1.7</swagger-maven-plugin>
@@ -156,7 +159,7 @@
             <dependency>
                 <groupId>io.vavr</groupId>
                 <artifactId>vavr</artifactId>
-                <version>1.0.0-alpha-3</version>
+                <version>${vavr-version}</version>
             </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>
@@ -167,6 +170,12 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${swagger-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.cq.core.boot</groupId>
+                <artifactId>core-commons</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -1,11 +1,11 @@
 package com.cq.core.boot.codegen.processor.controller;
 
 
-import com.google.auto.service.AutoService;
 import com.cq.core.boot.codegen.processor.BaseCodeGenProcessor;
 import com.cq.core.boot.codegen.processor.DefaultNameContext;
 import com.cq.core.boot.codegen.spi.CodeGenProcessor;
 import com.cq.core.boot.codegen.util.StringUtils;
+import com.google.auto.service.AutoService;
 import com.only4play.common.constants.CodeEnum;
 import com.only4play.common.model.JsonObject;
 import com.only4play.common.model.PageRequestWrapper;
@@ -42,7 +42,7 @@ public class GenControllerProcessor extends BaseCodeGenProcessor {
                 .addAnnotation(RequiredArgsConstructor.class)
                 .addModifiers(Modifier.PUBLIC);
         String serviceFieldName = StringUtils.camel(typeElement.getSimpleName().toString()) + "Service";
-        if(StringUtils.containsNull(nameContext.getServicePackageName())){
+        if (StringUtils.containsNull(nameContext.getServicePackageName())) {
             return;
         }
         FieldSpec serviceField = FieldSpec
@@ -163,6 +163,7 @@ public class GenControllerProcessor extends BaseCodeGenProcessor {
 
     /**
      * 修复不返回方法的问题
+     *
      * @param serviceFieldName
      * @param typeElement
      * @return
