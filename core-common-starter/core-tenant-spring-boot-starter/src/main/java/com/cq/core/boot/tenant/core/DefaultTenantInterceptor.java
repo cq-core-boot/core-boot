@@ -1,6 +1,5 @@
-package com.cq.core.boot.tenant;
+package com.cq.core.boot.tenant.core;
 
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -11,19 +10,18 @@ import javax.servlet.http.HttpServletResponse;
  * @author <a href="mailto:cqmike0315@gmail.com">chenqi</a>
  * @version 1.0
  */
-@Component
-public class TenantInterceptor extends HandlerInterceptorAdapter {
+public class DefaultTenantInterceptor extends HandlerInterceptorAdapter {
 
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String tenantId = request.getHeader("X-TenantID");
-        TenantContext.setCurrentTenant(tenantId);
+        TenantContextHolder.setCurrentTenant(tenantId);
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-        TenantContext.clear();
+        TenantContextHolder.clear();
     }
 }

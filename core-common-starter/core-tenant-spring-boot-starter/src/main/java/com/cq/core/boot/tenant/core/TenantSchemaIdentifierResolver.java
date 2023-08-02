@@ -1,8 +1,8 @@
-package com.cq.core.boot.tenant;
+package com.cq.core.boot.tenant.core;
 
+import com.cq.core.boot.tenant.config.TenantProperties;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernatePropertiesCustomizer;
-import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
@@ -12,18 +12,21 @@ import static org.hibernate.cfg.AvailableSettings.MULTI_TENANT_IDENTIFIER_RESOLV
  * @author <a href="mailto:cqmike0315@gmail.com">chenqi</a>
  * @version 1.0
  */
-@Component
-public class TenantIdentifierResolver implements CurrentTenantIdentifierResolver, HibernatePropertiesCustomizer {
+public class TenantSchemaIdentifierResolver implements CurrentTenantIdentifierResolver, HibernatePropertiesCustomizer {
 
-    public final static String DEFAULT_TENANT_ID = "test";
+    private final TenantProperties tenantProperties;
+
+    public TenantSchemaIdentifierResolver(TenantProperties tenantProperties) {
+        this.tenantProperties = tenantProperties;
+    }
 
     @Override
     public String resolveCurrentTenantIdentifier() {
-        String tenantId = TenantContext.getCurrentTenant();
+        String tenantId = TenantContextHolder.getCurrentTenant();
         if (tenantId != null) {
             return tenantId;
         }
-        return DEFAULT_TENANT_ID;
+        return tenantProperties.getDefaultTenantId();
     }
 
     @Override

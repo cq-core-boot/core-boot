@@ -1,10 +1,10 @@
-package com.cq.core.boot.tenant;
+package com.cq.core.boot.tenant.core;
 
 /**
  * @author <a href="mailto:cqmike0315@gmail.com">chenqi</a>
  * @version 1.0
  */
-public class TenantContext {
+public class TenantContextHolder {
     private static final ThreadLocal<String> currentTenant = new ThreadLocal<>();
 
     public static void setCurrentTenant(String tenant) {

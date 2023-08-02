@@ -1,11 +1,11 @@
-package com.cq.core.boot.tenant;
+package com.cq.core.boot.tenant.core;
 
+import com.cq.core.boot.tenant.config.TenantProperties;
 import org.hibernate.HibernateException;
 import org.hibernate.MultiTenancyStrategy;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernatePropertiesCustomizer;
-import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -19,14 +19,15 @@ import static org.hibernate.cfg.AvailableSettings.MULTI_TENANT_CONNECTION_PROVID
  * @author <a href="mailto:cqmike0315@gmail.com">chenqi</a>
  * @version 1.0
  */
-@Component
-public class CustomTenantProvider implements MultiTenantConnectionProvider, HibernatePropertiesCustomizer {
+public class CustomTenantSchemaProvider implements MultiTenantConnectionProvider, HibernatePropertiesCustomizer {
 
     private static final long serialVersionUID = -5437868050157073731L;
     private final DataSource dataSource;
+    private final TenantProperties tenantProperties;
 
-    public CustomTenantProvider(@Qualifier("dataSource") DataSource dataSource) {
+    public CustomTenantSchemaProvider(@Qualifier("dataSource") DataSource dataSource, TenantProperties tenantProperties) {
         this.dataSource = dataSource;
+        this.tenantProperties = tenantProperties;
     }
 
     @Override
@@ -41,13 +42,13 @@ public class CustomTenantProvider implements MultiTenantConnectionProvider, Hibe
 
     @Override
     public Connection getConnection(String tenantIdentifier) throws SQLException {
-        tenantIdentifier = TenantContext.getCurrentTenant();
+        tenantIdentifier = TenantContextHolder.getCurrentTenant();
         final Connection connection = getAnyConnection();
         try {
             if (tenantIdentifier != null) {
                 connection.createStatement().execute("USE " + tenantIdentifier);
             } else {
-                connection.createStatement().execute("USE " + TenantIdentifierResolver.DEFAULT_TENANT_ID);
+                connection.createStatement().execute("USE " + tenantProperties.getDefaultTenantId());
             }
         } catch (SQLException e) {
             throw new HibernateException(
@@ -61,7 +62,7 @@ public class CustomTenantProvider implements MultiTenantConnectionProvider, Hibe
     @Override
     public void releaseConnection(String tenantIdentifier, Connection connection) throws SQLException {
         // 切换数据库
-        String sql = String.format("USE %s", TenantIdentifierResolver.DEFAULT_TENANT_ID);
+        String sql = String.format("USE %s", tenantProperties.getDefaultTenantId());
         connection.createStatement().execute(sql);
         connection.close();
     }
