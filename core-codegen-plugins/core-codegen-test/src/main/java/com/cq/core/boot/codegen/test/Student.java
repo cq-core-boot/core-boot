@@ -30,32 +30,32 @@ import javax.persistence.Table;
 @GenQuery(pkgName = "com.cq.core.boot.codegen.test.query")
 @GenMapper(pkgName = "com.cq.core.boot.codegen.test.mapper")
 @GenController(pkgName = "com.cq.core.boot.codegen.test.controller")
-@GenCreateRequest(pkgName = "com.cq.core.boot.codegen.test.api.request",sourcePath = Constants.GEN_API_SOURCE)
-@GenUpdateRequest(pkgName = "com.cq.core.boot.codegen.test.api.request",sourcePath = Constants.GEN_API_SOURCE)
-@GenQueryRequest(pkgName = "com.cq.core.boot.codegen.test.api.request",sourcePath = Constants.GEN_API_SOURCE)
-@GenResponse(pkgName = "com.cq.core.boot.codegen.test.api.response",sourcePath = Constants.GEN_API_SOURCE)
-@GenFeign(pkgName = "com.cq.core.boot.codegen.test.api.service",sourcePath = Constants.GEN_API_SOURCE,serverName ="srv")
+@GenCreateRequest(pkgName = "com.cq.core.boot.codegen.test.api.request", sourcePath = Constants.GEN_API_SOURCE)
+@GenUpdateRequest(pkgName = "com.cq.core.boot.codegen.test.api.request", sourcePath = Constants.GEN_API_SOURCE)
+@GenQueryRequest(pkgName = "com.cq.core.boot.codegen.test.api.request", sourcePath = Constants.GEN_API_SOURCE)
+@GenResponse(pkgName = "com.cq.core.boot.codegen.test.api.response", sourcePath = Constants.GEN_API_SOURCE)
+@GenFeign(pkgName = "com.cq.core.boot.codegen.test.api.service", sourcePath = Constants.GEN_API_SOURCE, serverName = "srv")
 @Entity
 @Table(name = "")
 @Data
 public class Student extends BaseJpaAggregate {
 
-  @Convert(converter = ValidStatusConverter.class)
-  @IgnoreUpdater
-  @IgnoreCreator
-  private ValidStatus validStatus;
+    @Convert(converter = ValidStatusConverter.class)
+    @IgnoreUpdater
+    @IgnoreCreator
+    private ValidStatus validStatus;
 
-  private Long age;
+    private Long age;
 
-  public void init() {
-    setValidStatus(ValidStatus.VALID);
-  }
+    public void init() {
+        setValidStatus(ValidStatus.VALID);
+    }
 
-  public void valid(){
-    setValidStatus(ValidStatus.VALID);
-  }
+    public void valid() {
+        setValidStatus(ValidStatus.VALID);
+    }
 
-  public void invalid(){
-    setValidStatus(ValidStatus.INVALID);
-  }
+    public void invalid() {
+        setValidStatus(ValidStatus.INVALID);
+    }
 }
