@@ -1,5 +1,6 @@
 package com.cq.core.boot.tenant.core;
 
+import com.cq.core.boot.tenant.config.TenantProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class TenantSchemaWebConfig implements WebMvcConfigurer {
 
+    private final TenantProperties tenantProperties;
+
+    public TenantSchemaWebConfig(TenantProperties tenantProperties) {
+        this.tenantProperties = tenantProperties;
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -23,7 +29,7 @@ public class TenantSchemaWebConfig implements WebMvcConfigurer {
     @Bean("tenantInterceptor")
     @ConditionalOnMissingBean(name = "tenantInterceptor")
     public DefaultTenantInterceptor tenantInterceptor() {
-        return new DefaultTenantInterceptor();
+        return new DefaultTenantInterceptor(tenantProperties);
     }
 
 

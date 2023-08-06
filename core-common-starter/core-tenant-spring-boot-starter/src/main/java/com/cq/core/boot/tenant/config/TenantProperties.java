@@ -12,4 +12,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class TenantProperties {
 
     private String defaultTenantId;
+    private String defaultRequestTenantKey = "X-TenantID";
 }

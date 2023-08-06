@@ -38,6 +38,8 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <jodd-version>5.1.4</jodd-version>
+        <ttl-version>2.14.3</ttl-version>
+        <hutool.version>5.8.16</hutool.version>
         <mapstruct-version>1.4.2.Final</mapstruct-version>
         <spring-statemachine.version>2.5.0</spring-statemachine.version>
     </properties>
@@ -177,6 +179,21 @@
                 <artifactId>core-commons</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${ttl-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-bom</artifactId>
+                <version>${hutool.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
     <build>

@@ -5,6 +5,7 @@ import com.cq.core.boot.tenant.core.CustomTenantSchemaProvider;
 import com.cq.core.boot.tenant.core.TenantSchemaIdentifierResolver;
 import com.cq.core.boot.tenant.core.TenantSchemaWebConfig;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
@@ -20,6 +21,7 @@ import javax.sql.DataSource;
 })
 @EnableConfigurationProperties({TenantProperties.class})
 @RequiredArgsConstructor
+@ConditionalOnBean(DataSource.class)
 public class TenantSchemaAutoConfiguration {
 
     private final TenantProperties tenantProperties;
