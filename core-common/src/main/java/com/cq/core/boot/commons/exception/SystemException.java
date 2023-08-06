@@ -1,16 +1,19 @@
 package com.cq.core.boot.commons.exception;
 
+import lombok.Getter;
+
 /**
  * @author cqmike
  **/
-public class SystemException extends RuntimeException {
+@Getter
+public class SystemException extends BaseException {
 
-  private static final long serialVersionUID = -6049220729887363535L;
+    private static final long serialVersionUID = -6049220729887363535L;
 
-  private String msg;
+    private String msg;
 
-  public SystemException(String msg) {
-    super(msg);
-    this.msg = msg;
-  }
+    public SystemException(String msg) {
+        super(msg);
+        this.msg = msg;
+    }
 }

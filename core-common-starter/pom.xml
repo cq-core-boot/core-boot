@@ -14,6 +14,7 @@
     <modules>
         <module>core-jpa-spring-boot-starter</module>
         <module>core-tenant-spring-boot-starter</module>
+        <module>core-security-spring-boot-starter</module>
     </modules>
 
     <properties>
