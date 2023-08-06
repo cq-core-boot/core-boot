@@ -175,17 +175,6 @@
             </dependency>
 
             <dependency>
-                <groupId>com.cq.core.boot</groupId>
-                <artifactId>core-common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.cq.core.boot</groupId>
-                <artifactId>core-jpa-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>transmittable-thread-local</artifactId>
                 <version>${ttl-version}</version>
@@ -199,6 +188,33 @@
                 <scope>import</scope>
             </dependency>
 
+            <dependency>
+                <groupId>com.cq.core.boot</groupId>
+                <artifactId>core-codegen-apt</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.cq.core.boot</groupId>
+                <artifactId>core-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.cq.core.boot</groupId>
+                <artifactId>core-jpa-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.cq.core.boot</groupId>
+                <artifactId>core-tenant-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.cq.core.boot</groupId>
+                <artifactId>core-security-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>

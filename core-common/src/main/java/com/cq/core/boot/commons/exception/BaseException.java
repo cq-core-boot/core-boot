@@ -12,20 +12,20 @@ import lombok.Getter;
 public abstract class BaseException extends RuntimeException {
     private static final long serialVersionUID = -467193070103185483L;
 
-    private final BaseEnum msg;
+    protected final BaseEnum baseEnum;
 
     protected BaseException(String message) {
         super(message);
-        this.msg = CodeEnum.SystemError;
+        this.baseEnum = CodeEnum.SystemError;
     }
 
     protected BaseException(BaseEnum msg) {
         super(msg.getName());
-        this.msg = msg;
+        this.baseEnum = msg;
     }
 
     protected BaseException(BaseEnum msg, Throwable throwable) {
         super(msg.getName(), throwable);
-        this.msg = msg;
+        this.baseEnum = msg;
     }
 }
