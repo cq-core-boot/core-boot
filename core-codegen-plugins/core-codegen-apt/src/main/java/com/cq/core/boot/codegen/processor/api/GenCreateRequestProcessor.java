@@ -4,8 +4,8 @@ import com.cq.core.boot.codegen.processor.BaseCodeGenProcessor;
 import com.cq.core.boot.codegen.processor.DefaultNameContext;
 import com.cq.core.boot.codegen.processor.creator.IgnoreCreator;
 import com.cq.core.boot.codegen.spi.CodeGenProcessor;
+import com.cq.core.boot.commons.model.Request;
 import com.google.auto.service.AutoService;
-import com.only4play.common.model.Request;
 import com.squareup.javapoet.TypeSpec;
 import io.swagger.v3.oas.annotations.media.Schema;
 

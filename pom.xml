@@ -8,7 +8,7 @@
     <version>1.0.0</version>
     <packaging>pom</packaging>
     <modules>
-        <module>core-commons</module>
+        <module>core-common</module>
         <module>core-common-starter</module>
         <module>core-codegen-plugins</module>
     </modules>
@@ -176,7 +176,12 @@
 
             <dependency>
                 <groupId>com.cq.core.boot</groupId>
-                <artifactId>core-commons</artifactId>
+                <artifactId>core-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.cq.core.boot</groupId>
+                <artifactId>core-jpa-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

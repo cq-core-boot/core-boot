@@ -5,11 +5,11 @@ import com.cq.core.boot.codegen.processor.BaseCodeGenProcessor;
 import com.cq.core.boot.codegen.processor.DefaultNameContext;
 import com.cq.core.boot.codegen.spi.CodeGenProcessor;
 import com.cq.core.boot.codegen.util.StringUtils;
+import com.cq.core.boot.commons.constants.CodeEnum;
+import com.cq.core.boot.commons.model.PageRequestWrapper;
+import com.cq.core.boot.commons.model.PageResult;
+import com.cq.core.boot.commons.model.R;
 import com.google.auto.service.AutoService;
-import com.only4play.common.constants.CodeEnum;
-import com.only4play.common.model.JsonObject;
-import com.only4play.common.model.PageRequestWrapper;
-import com.only4play.common.model.PageResult;
 import com.squareup.javapoet.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -97,10 +97,10 @@ public class GenControllerProcessor extends BaseCodeGenProcessor {
                                     ClassName.get(nameContext.getCreatorPackageName(), nameContext.getCreatorClassName()), ClassName.get(nameContext.getMapperPackageName(), nameContext.getMapperClassName()))
                     )
                     .addCode(
-                            CodeBlock.of("return JsonObject.success($L.create$L(creator));", serviceFieldName, typeElement.getSimpleName().toString())
+                            CodeBlock.of("return R.success($L.create$L(creator));", serviceFieldName, typeElement.getSimpleName().toString())
                     )
                     .addJavadoc("createRequest")
-                    .returns(ParameterizedTypeName.get(ClassName.get(JsonObject.class), ClassName.get(Long.class))).build());
+                    .returns(ParameterizedTypeName.get(ClassName.get(R.class), ClassName.get(Long.class))).build());
         }
         return Optional.empty();
     }
@@ -128,9 +128,9 @@ public class GenControllerProcessor extends BaseCodeGenProcessor {
                             CodeBlock.of("$L.update$L(updater);\n", serviceFieldName, typeElement.getSimpleName().toString())
                     )
                     .addCode(
-                            CodeBlock.of("return $T.success($T.Success.getName());", JsonObject.class, CodeEnum.class)
+                            CodeBlock.of("return $T.success($T.Success.getName());", R.class, CodeEnum.class)
                     )
-                    .returns(ParameterizedTypeName.get(ClassName.get(JsonObject.class), ClassName.get(String.class)))
+                    .returns(ParameterizedTypeName.get(ClassName.get(R.class), ClassName.get(String.class)))
                     .addJavadoc("update request")
                     .build());
         }
@@ -154,9 +154,9 @@ public class GenControllerProcessor extends BaseCodeGenProcessor {
                                 serviceFieldName, typeElement.getSimpleName().toString())
                 )
                 .addCode(
-                        CodeBlock.of("return $T.success($T.Success.getName());", JsonObject.class, CodeEnum.class)
+                        CodeBlock.of("return $T.success($T.Success.getName());", R.class, CodeEnum.class)
                 )
-                .returns(ParameterizedTypeName.get(ClassName.get(JsonObject.class), ClassName.get(String.class)))
+                .returns(ParameterizedTypeName.get(ClassName.get(R.class), ClassName.get(String.class)))
                 .addJavadoc("valid")
                 .build());
     }
@@ -178,9 +178,9 @@ public class GenControllerProcessor extends BaseCodeGenProcessor {
                                 serviceFieldName, typeElement.getSimpleName().toString())
                 )
                 .addCode(
-                        CodeBlock.of("return $T.success($T.Success.getName());", JsonObject.class, CodeEnum.class)
+                        CodeBlock.of("return $T.success($T.Success.getName());", R.class, CodeEnum.class)
                 )
-                .returns(ParameterizedTypeName.get(ClassName.get(JsonObject.class), ClassName.get(String.class)))
+                .returns(ParameterizedTypeName.get(ClassName.get(R.class), ClassName.get(String.class)))
                 .addJavadoc("invalid")
                 .build());
     }
@@ -201,10 +201,10 @@ public class GenControllerProcessor extends BaseCodeGenProcessor {
                                     ClassName.get(nameContext.getMapperPackageName(), nameContext.getMapperClassName()))
                     )
                     .addCode(
-                            CodeBlock.of("return $T.success(response);", JsonObject.class)
+                            CodeBlock.of("return $T.success(response);", R.class)
                     )
                     .addJavadoc("findById")
-                    .returns(ParameterizedTypeName.get(ClassName.get(JsonObject.class), ClassName.get(nameContext.getResponsePackageName(), nameContext.getResponseClassName())))
+                    .returns(ParameterizedTypeName.get(ClassName.get(R.class), ClassName.get(nameContext.getResponsePackageName(), nameContext.getResponseClassName())))
                     .build());
         }
         return Optional.empty();
@@ -248,10 +248,10 @@ public class GenControllerProcessor extends BaseCodeGenProcessor {
                                     + "            page.getTotalElements(),\n"
                                     + "            page.getSize(),\n"
                                     + "            page.getNumber())\n"
-                                    + "    );", JsonObject.class, PageResult.class, ClassName.get(nameContext.getMapperPackageName(), nameContext.getMapperClassName()), Collectors.class)
+                                    + "    );", R.class, PageResult.class, ClassName.get(nameContext.getMapperPackageName(), nameContext.getMapperClassName()), Collectors.class)
                     )
                     .addJavadoc("findByPage request")
-                    .returns(ParameterizedTypeName.get(ClassName.get(JsonObject.class), ParameterizedTypeName.get(ClassName.get(
+                    .returns(ParameterizedTypeName.get(ClassName.get(R.class), ParameterizedTypeName.get(ClassName.get(
                             PageResult.class), ClassName.get(nameContext.getResponsePackageName(), nameContext.getResponseClassName()))))
                     .build());
         }

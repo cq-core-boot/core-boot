@@ -3,8 +3,8 @@ package com.cq.core.boot.codegen.processor.repository;
 
 import com.cq.core.boot.codegen.processor.BaseCodeGenProcessor;
 import com.cq.core.boot.codegen.spi.CodeGenProcessor;
+import com.cq.core.boot.jpa.support.BaseRepository;
 import com.google.auto.service.AutoService;
-import com.only4play.jpa.support.BaseRepository;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;

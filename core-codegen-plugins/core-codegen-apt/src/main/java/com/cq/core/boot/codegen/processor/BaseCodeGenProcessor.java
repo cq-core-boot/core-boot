@@ -21,10 +21,10 @@ import com.cq.core.boot.codegen.processor.updater.GenUpdaterProcessor;
 import com.cq.core.boot.codegen.processor.vo.GenVo;
 import com.cq.core.boot.codegen.processor.vo.VoCodeGenProcessor;
 import com.cq.core.boot.codegen.spi.CodeGenProcessor;
+import com.cq.core.boot.commons.annotation.FieldDesc;
+import com.cq.core.boot.commons.annotation.TypeConverter;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
-import com.only4play.common.annotation.FieldDesc;
-import com.only4play.common.annotation.TypeConverter;
 import com.squareup.javapoet.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -233,7 +233,7 @@ public abstract class BaseCodeGenProcessor implements CodeGenProcessor {
         int size = Iterables.size(classes);
           if (size > 1) {
           //泛型生成像这样
-          //ParameterizedTypeName.get(ClassName.get(JsonObject.class), ClassName.get(String.class))
+            //ParameterizedTypeName.get(ClassName.get(R.class), ClassName.get(String.class))
               typeName = ParameterizedTypeName.get(ClassName.bestGuess(Iterables.get(classes, 0)), ClassName.bestGuess(Iterables.get(classes, 1)));
           } else {
           typeName = ClassName.bestGuess(ve.getAnnotation(TypeConverter.class).toTypeFullName());

@@ -11,7 +11,7 @@ import com.cq.core.boot.codegen.processor.repository.GenRepository;
 import com.cq.core.boot.codegen.processor.service.GenService;
 import com.cq.core.boot.codegen.processor.updater.GenUpdater;
 import com.cq.core.boot.codegen.processor.vo.GenVo;
-import com.only4play.jpa.support.BaseJpaAggregate;
+import com.cq.core.boot.jpa.support.BaseJpaAggregate;
 
 /**
  * @author gim 2022/1/11 10:53 下午

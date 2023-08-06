@@ -35,7 +35,7 @@
         </dependency>
         <dependency>
             <groupId>com.cq.core.boot</groupId>
-            <artifactId>core-commons</artifactId>
+            <artifactId>core-common</artifactId>
         </dependency>
     </dependencies>
     <build>

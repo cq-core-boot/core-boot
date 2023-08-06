@@ -1,6 +1,6 @@
 package com.cq.core.boot.codegen.processor.vo;
 
-import com.only4play.jpa.support.BaseJpaAggregate;
+import com.cq.core.boot.jpa.support.BaseJpaAggregate;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

@@ -24,7 +24,7 @@ public class Only4PlayCodeGenProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        annotations.stream().forEach(an -> {
+        annotations.forEach(an -> {
             Set<? extends Element> typeElements = roundEnv.getElementsAnnotatedWith(an);
             Set<TypeElement> types = ElementFilter.typesIn(typeElements);
             for (TypeElement typeElement : types) {

@@ -4,11 +4,11 @@ import com.cq.core.boot.codegen.processor.BaseCodeGenProcessor;
 import com.cq.core.boot.codegen.processor.DefaultNameContext;
 import com.cq.core.boot.codegen.spi.CodeGenProcessor;
 import com.cq.core.boot.codegen.util.StringUtils;
+import com.cq.core.boot.commons.model.PageRequestWrapper;
+import com.cq.core.boot.commons.model.PageResult;
+import com.cq.core.boot.commons.model.R;
 import com.google.auto.service.AutoService;
 import com.google.common.base.CaseFormat;
-import com.only4play.common.model.JsonObject;
-import com.only4play.common.model.PageRequestWrapper;
-import com.only4play.common.model.PageResult;
 import com.squareup.javapoet.*;
 import com.squareup.javapoet.TypeSpec.Builder;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -82,7 +82,7 @@ public class GenFeignProcessor extends BaseCodeGenProcessor {
                     .addAnnotation(AnnotationSpec.builder(PostMapping.class).addMember("value", "$S", "create" + typeElement.getSimpleName()).build())
                     .addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT)
                     .addJavadoc("createRequest")
-                    .returns(ParameterizedTypeName.get(ClassName.get(JsonObject.class), ClassName.get(Long.class))).build());
+                    .returns(ParameterizedTypeName.get(ClassName.get(R.class), ClassName.get(Long.class))).build());
         }
         return Optional.empty();
     }
@@ -94,7 +94,7 @@ public class GenFeignProcessor extends BaseCodeGenProcessor {
                     .addParameter(ParameterSpec.builder(ClassName.get(nameContext.getUpdatePackageName(), nameContext.getUpdateClassName()), "request").addAnnotation(RequestBody.class).build())
                     .addAnnotation(AnnotationSpec.builder(PostMapping.class).addMember("value", "$S", "update" + typeElement.getSimpleName()).build())
                     .addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT)
-                    .returns(ParameterizedTypeName.get(ClassName.get(JsonObject.class), ClassName.get(String.class)))
+                    .returns(ParameterizedTypeName.get(ClassName.get(R.class), ClassName.get(String.class)))
                     .addJavadoc("update request")
                     .build());
         }
@@ -106,7 +106,7 @@ public class GenFeignProcessor extends BaseCodeGenProcessor {
                 .addParameter(ParameterSpec.builder(Long.class, "id").addAnnotation(AnnotationSpec.builder(PathVariable.class).addMember("value", "$S", "id").build()).build())
                 .addAnnotation(AnnotationSpec.builder(PostMapping.class).addMember("value", "$S", "valid/{id}").build())
                 .addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT)
-                .returns(ParameterizedTypeName.get(ClassName.get(JsonObject.class), ClassName.get(String.class)))
+                .returns(ParameterizedTypeName.get(ClassName.get(R.class), ClassName.get(String.class)))
                 .addJavadoc("valid")
                 .build());
     }
@@ -116,7 +116,7 @@ public class GenFeignProcessor extends BaseCodeGenProcessor {
                 .addParameter(ParameterSpec.builder(Long.class, "id").addAnnotation(AnnotationSpec.builder(PathVariable.class).addMember("value", "$S", "id").build()).build())
                 .addAnnotation(AnnotationSpec.builder(PostMapping.class).addMember("value", "$S", "invalid/{id}").build())
                 .addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT)
-                .returns(ParameterizedTypeName.get(ClassName.get(JsonObject.class), ClassName.get(String.class)))
+                .returns(ParameterizedTypeName.get(ClassName.get(R.class), ClassName.get(String.class)))
                 .addJavadoc("invalid")
                 .build());
     }
@@ -129,7 +129,7 @@ public class GenFeignProcessor extends BaseCodeGenProcessor {
                     .addAnnotation(AnnotationSpec.builder(GetMapping.class).addMember("value", "$S", "findById/{id}").build())
                     .addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT)
                     .addJavadoc("findById")
-                    .returns(ParameterizedTypeName.get(ClassName.get(JsonObject.class), ClassName.get(nameContext.getResponsePackageName(), nameContext.getResponseClassName())))
+                    .returns(ParameterizedTypeName.get(ClassName.get(R.class), ClassName.get(nameContext.getResponsePackageName(), nameContext.getResponseClassName())))
                     .build());
         }
         return Optional.empty();
@@ -144,7 +144,7 @@ public class GenFeignProcessor extends BaseCodeGenProcessor {
                     .addAnnotation(AnnotationSpec.builder(PostMapping.class).addMember("value", "$S", "findByPage").build())
                     .addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT)
                     .addJavadoc("findByPage request")
-                    .returns(ParameterizedTypeName.get(ClassName.get(JsonObject.class), ParameterizedTypeName.get(ClassName.get(
+                    .returns(ParameterizedTypeName.get(ClassName.get(R.class), ParameterizedTypeName.get(ClassName.get(
                             PageResult.class), ClassName.get(nameContext.getResponsePackageName(), nameContext.getResponseClassName()))))
                     .build());
         }

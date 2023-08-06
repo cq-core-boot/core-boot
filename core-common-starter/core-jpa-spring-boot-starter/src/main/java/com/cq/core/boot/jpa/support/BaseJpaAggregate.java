@@ -3,12 +3,14 @@ package com.cq.core.boot.jpa.support;
 import com.cq.core.boot.jpa.converter.InstantLongConverter;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Setter;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import javax.persistence.*;
 import java.time.Instant;
 
+@EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
 @Data
 public abstract class BaseJpaAggregate extends AbstractAggregateRoot<BaseJpaAggregate> {

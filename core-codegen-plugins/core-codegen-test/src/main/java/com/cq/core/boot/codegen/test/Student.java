@@ -12,9 +12,9 @@ import com.cq.core.boot.codegen.processor.service.GenServiceImpl;
 import com.cq.core.boot.codegen.processor.updater.GenUpdater;
 import com.cq.core.boot.codegen.processor.updater.IgnoreUpdater;
 import com.cq.core.boot.codegen.processor.vo.GenVo;
-import com.only4play.common.constants.ValidStatus;
-import com.only4play.jpa.converter.ValidStatusConverter;
-import com.only4play.jpa.support.BaseJpaAggregate;
+import com.cq.core.boot.commons.constants.ValidStatus;
+import com.cq.core.boot.jpa.converter.ValidStatusConverter;
+import com.cq.core.boot.jpa.support.BaseJpaAggregate;
 import lombok.Data;
 
 import javax.persistence.Convert;
