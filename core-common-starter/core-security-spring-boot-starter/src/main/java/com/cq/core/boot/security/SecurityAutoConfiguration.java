@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Import;
  * @author gim
  */
 @Configuration
-@ConditionalOnProperty(prefix = "op.security", name = "enable", havingValue = "true")
+@ConditionalOnProperty(prefix = "core.security", name = "enable", havingValue = "true")
 public class SecurityAutoConfiguration {
 
     @Configuration

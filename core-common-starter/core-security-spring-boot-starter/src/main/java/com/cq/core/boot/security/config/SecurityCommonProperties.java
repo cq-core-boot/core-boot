@@ -10,7 +10,7 @@ import java.util.List;
 
 @Component
 @Data
-@ConfigurationProperties(prefix = "op.security.urls")
+@ConfigurationProperties(prefix = "core.security.urls")
 public class SecurityCommonProperties {
 
   @FieldDesc(name = "不需要权限的链接地址集合")

@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @version 1.0
  */
 @Data
-@ConfigurationProperties(prefix = "tenant.schema")
+@ConfigurationProperties(prefix = "core.tenant.schema")
 public class TenantProperties {
 
     private String defaultTenantId;

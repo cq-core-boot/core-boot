@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Data
-@ConfigurationProperties(prefix = "op.security")
+@ConfigurationProperties(prefix = "core.security")
 public class LoginConfigProperties {
 
   @FieldDesc(name = "token过期时间默认30分钟")
